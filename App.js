@@ -1,43 +1,53 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Alert, TextInput, Text  } from 'react-native';
+import { StyleSheet, View, Button, Alert, TextInput, Text } from 'react-native';
 
 export default function App() {
-  const [guess, setGuess] = useState(0);
-  
-   
-  
+  const [guess, setGuess] = useState(0)
+  const [result, setResult] = useState("Guess a number between 1-100")
+  const [number, setNumber] = useState(Math.floor(Math.random() * 100) + 1)
+  const [count, setCount] = useState(1);
 
-  const go = () => { 
-  const number = Math.floor(Math.random() * 100) + 1;
-    
-    if (guess == number) {
-      return 'Voitto';
-    else if (condition) {
-      
+
+
+  const go = () => {
+
+    setCount(count + 1)
+
+
+    if (number == guess) {
+
+      return Alert.alert('You guessed the number in ' + count + ' guesses')
+
+
+    } else if (number > guess) {
+      return setResult("Your guess " + String(guess) + " was too low")
     } else {
-      
-    }(guess < number) {
-
-    } 
-
+      return setResult("Your guess " + String(guess) + " was too high")
     }
-  };
- 
+
+
+  }
+
+
 
   return (
     <><View style={styles.container}>
-      <Text>Your guess {guess}</Text>
-      <Text></Text> 
-      <TextInput style={styles.input} keyboardType= 'number-pad' onChangeText={guess => setGuess(guess)} value={guess} />
+      <Text></Text>
+      <Text>{result}</Text>
+      <TextInput style={styles.input} keyboardType='number-pad' onChangeText={guess => setGuess(guess)} value={guess} />
       <StatusBar style="auto" />
+      {/*} <Text>Number was: {number} </Text> */}
+
     </View>
-    <View style={styles.container2}>
+      <View style={styles.container2}>
         <Button onPress={go} title="Make a guess" />
         <StatusBar style="auto" />
       </View></>
+
+
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -54,13 +64,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  image : {
+  image: {
     width: 250,
     height: 100
   },
-  input : {
-    width:200  , 
-    borderColor: 'gray', 
+  input: {
+    width: 200,
+    borderColor: 'gray',
     borderWidth: 1
   }
 });
